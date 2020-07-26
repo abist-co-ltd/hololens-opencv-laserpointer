@@ -1,1 +1,1 @@
-# hololens-laserpointer-detection
+# hololens-opencv-detection
