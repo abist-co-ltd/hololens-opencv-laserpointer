@@ -629,7 +629,7 @@ PlayerSettings:
       InternetClientServer: False
       Location: False
       LowLevelDevices: False
-      Microphone: True
+      Microphone: False
       MusicLibrary: False
       Objects3D: False
       OfflineMapsManagement: False
