@@ -2,6 +2,11 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+
+# do not include OpenCVForUnity Asset since it is not open source
+/Assets/OpenCVForUnity/
+/Assets/OpenCVForUnity.meta
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
