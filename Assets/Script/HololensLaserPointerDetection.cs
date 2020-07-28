@@ -103,12 +103,10 @@ namespace HoloLensWithOpenCVForUnityExample
             Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
             Matrix4x4 projectionMatrix;
+
 #if ENABLE_WINMD_SUPPORT
             projectionMatrix = webCamTextureToMatHelper.GetProjectionMatrix ();
-
 #else
-            quad_renderer = gameObject.GetComponent<Renderer>() as Renderer;
-            quad_renderer.sharedMaterial.SetTexture("_MainTex", texture);
 
             //This value is obtained from PhotoCapture's TryGetProjectionMatrix() method.I do not know whether this method is good.
             //Please see the discussion of this thread.Https://forums.hololens.com/discussion/782/live-stream-of-locatable-camera-webcam-in-unity
@@ -129,8 +127,10 @@ namespace HoloLensWithOpenCVForUnityExample
             projectionMatrix.m31 = 0.00000f;
             projectionMatrix.m32 = -1.00000f;
             projectionMatrix.m33 = 0.00000f;
-            quad_renderer.sharedMaterial.SetMatrix("_CameraProjectionMatrix", projectionMatrix);
 #endif
+            quad_renderer = gameObject.GetComponent<Renderer>() as Renderer;
+            quad_renderer.sharedMaterial.SetTexture("_MainTex", texture);
+            quad_renderer.sharedMaterial.SetMatrix("_CameraProjectionMatrix", projectionMatrix);
 
             float halfOfVerticalFov = Mathf.Atan(1.0f / projectionMatrix.m11);
             float aspectRatio = (1.0f / Mathf.Tan(halfOfVerticalFov)) / projectionMatrix.m00;
@@ -159,34 +159,6 @@ namespace HoloLensWithOpenCVForUnityExample
         {
             Debug.Log("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
         }
-
-        private int FindRedContours(Mat bgraMat, out System.Collections.Generic.List<MatOfPoint> contours)
-        {
-            Mat hsvMat = new Mat(bgraMat.height(), bgraMat.width(), CvType.CV_8UC3);
-            Mat maskMat = new Mat(bgraMat.height(), bgraMat.width(), CvType.CV_8UC1);
-            Mat grayMat = new Mat(bgraMat.height(), bgraMat.width(), CvType.CV_8UC1);
-
-            // Color conversion from BGRA to HSV
-            Imgproc.cvtColor(bgraMat, hsvMat, Imgproc.COLOR_BGRA2BGR);
-            Imgproc.cvtColor(hsvMat, hsvMat, Imgproc.COLOR_BGR2HSV);
-
-            // Acquire a mask image of reddish pixels using the inRange method.
-            Scalar s_min = new Scalar(160, 20, 220);
-            Scalar s_max = new Scalar(180, 255, 255);
-            Core.inRange(hsvMat, s_min, s_max, maskMat);
-
-            // Get contour points from mask
-            contours = new System.Collections.Generic.List<MatOfPoint>();
-            Imgproc.findContours(maskMat, contours, grayMat, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-            Imgproc.drawContours(bgraMat, contours, -1, new Scalar(0, 255, 0), 3);
-
-            hsvMat.Dispose();
-            maskMat.Dispose();
-            grayMat.Dispose();
-
-            return contours.Count;
-        }
-
 
         /// <summary>
         /// Fast version: Find brightest red pixel in a masked image 
@@ -492,16 +464,13 @@ namespace HoloLensWithOpenCVForUnityExample
             if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
             {
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat();
-
-                System.Collections.Generic.List<MatOfPoint> contours;
-                if (FindRedContours(rgbaMat, out contours) >= 1)
+                Vector3 hitPoint = new Vector3(0,0,0);
+                var laserPointerPosition = FindLaserPointer(rgbaMat);
+                if (laserPointerPosition != null) 
                 {
-                    // Convert the first point of the detected contour to Unity world coordinates
-                    Point[] countoursPoint = contours[0].toArray();
-
                     // Unprojects pixel coordinates into a camera space ray from the camera origin, expressed as a X, Y coordinates on a plane one meter from the camera.
-                    UnityEngine.Vector3 pos = new UnityEngine.Vector3((float)((countoursPoint[0].x / rgbaMat.width()) * Screen.currentResolution.width),
-                                                                (float)((countoursPoint[0].y / rgbaMat.height()) * Screen.currentResolution.height), 1.0f);
+                    UnityEngine.Vector3 pos = new UnityEngine.Vector3((float)((laserPointerPosition.x / rgbaMat.width()) * Screen.currentResolution.width),
+                                                                (float)((laserPointerPosition.y / rgbaMat.height()) * Screen.currentResolution.height), 1.0f);
                     UnityEngine.Vector3 toPos = Camera.main.ScreenToWorldPoint(pos);
 
                     if ((redSphere.transform.position - toPos).magnitude >= 0.1)
