@@ -21,9 +21,9 @@ Tested on HoloLens 2 and Gen 1.
 ## Setup
 
 After cloning, open the project in Unity and import the OpenCV for Unity asset.<br>
-Setup the OpenCVForUnity: Tools > OpenCV for Unity > Set Plugin Import Settings
+Setup OpenCVForUnity: Tools > OpenCV for Unity > Set Plugin Import Settings
 
-**Note**: MRTK 2.4.0 package files are already included in this repository.
+**Note**: MRTK 2.4.0 package files are already included and configured in this repository.
 
 ## Usage
 ### Build and Deployment
@@ -38,11 +38,11 @@ Build and deploy the application to HoloLens as described on
 ### SampleScene Structure and Configuration
 
 In Unity, open <tt>SampleScene</tt> and select <tt>ImageView</tt>.
-Its components <tt>HoloLens Camera Stream To Mat Helper</tt> and <tt>Hololens Laser Pointer Detection</tt> implement laser pointer detection from the camera image. 
+Its components <tt>HoloLens Camera Stream To Mat Helper</tt> and <tt>Hololens Laser Pointer Detection</tt> implement the detection of a laser pointer in the camera image. 
 
 ![ImageView Components](/Document/ImageViewInspector.PNG)
 
-<tt>HololensLaserPointerDetection.cs</tt> detects a red laser pointer using OpenCV for Unity, determines its 3D coordinates and displays the distance in a tooltip.
+<tt>HololensLaserPointerDetection.cs</tt> detects a red laser pointer using OpenCV for Unity, determines its 3D coordinates, and displays the distance in a tooltip.
 
 **Note**: To aid debugging, camera images are retrieved from the PC's webcam instead of HoloLens, when executed in the Unity editor.
 
@@ -51,7 +51,7 @@ Its components <tt>HoloLens Camera Stream To Mat Helper</tt> and <tt>Hololens La
 The original version of this component is available on [HoloLens With OpenCVForUnity Example](https://github.com/EnoxSoftware/HoloLensWithOpenCVForUnityExample)
 
 Adjust the options of <tt>HoloLens Camera Stream To Mat Helper</tt> 
-for accurracy and performance.
+to balance accurracy and performance.
 
 | Option | Values |
 |--------|--------|
@@ -67,12 +67,12 @@ See [Locatable camera](https://docs.microsoft.com/en-us/windows/mixed-reality/lo
 |--------|--------|-------------|
 | Unprojection Offset  | (float x, float y) | Calibration of 2D -> 3D unprojection of detected laser pointer. Adjust to reduce unprojection error.
 | Detection Area | (float x, float y) | Portion of the camera image used for laser pointer detection. x and y must be between 0 and 1. Smaller values increase speed but narrow the detection area.
-| Is Visible Image    | bool | Enables a panel showing the real time camera image for debugging purposes.|
-|Show FPS | bool | Enable to view how many frames per seconds the laser pointer detection algorithm processes.
-| Fast Detection | bool | Enable to choose a detection algorithm that favours performance over accuracy.| 
+| Is Visible Image    | bool | Enables a panel showing the real time camera image for debugging purposes in front of the user.|
+|Show FPS | bool | Enables the output of frames per seconds the laser pointer detection algorithm processes.
+| Fast Detection | bool | Enables a detection algorithm favoring performance over accuracy.| 
 
 #### Additional Customization
-Depending on the environment and type of laser pointer used, it may be necessary to adjust the color range for the detected laser light in <tt>HololensLaserPointerDetection.cs</tt> method <tt>FindLaserPointer</tt>
+Depending on the environment and type of laser pointer, it may be necessary to adjust the color range for the detected laser light in <tt>HololensLaserPointerDetection.cs</tt> method <tt>FindLaserPointer</tt>
 
 ```
             // Acquire a mask image of reddish pixels using the inRange method. 
@@ -88,7 +88,7 @@ Depending on the environment and type of laser pointer used, it may be necessary
 
 ## Known Issues and Limitations
 
-This is work in progress. Known issues are listed in **Issues** of this repository. Please help to improve this project by reporting bugs and areas of improvement. Ideas for laser pointer detection are particulary welcome!
+This is work in progress. Known issues are listed in **Issues** of this repository. Please help to improve this work by reporting bugs and areas of improvement. Ideas for laser pointer detection are particulary welcome!
 
 Currently, detection is limited to a single red laser pointer. Red and shiny objects other than laser pointers are likely to be detected as well (false positives). 
 
@@ -129,7 +129,6 @@ This code is based on the following source code:
     Assets/Script/HoloLensWithOpenCVForUnityExample/ with the following modifications:
       * Retrieve <tt>CameraIntrinsics</tt> from <tt>VidoCaptureSample</tt> object and pass it to <tt>FameMatAcquiredCallback</tt>
    * The structure of <tt>HololensLaserPointerDetection.cs</tt> is inspired by <tt>HoloLensComicFilterExample.cs</tt> from [HoloLens With OpenCVForUnity Example](https://github.com/EnoxSoftware/HoloLensWithOpenCVForUnityExample)
-
 
 
 * Microsoft [MixedRealityToolkit-Unity](https://github.com/microsoft/MixedRealityToolkit-Unity) (MIT License)
