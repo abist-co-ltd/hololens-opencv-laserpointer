@@ -12,7 +12,7 @@ Tested on HoloLens 2 and Gen 1.
 
 ## Dependencies
 
- * Unity 2019.4.x LTS
+ * Unity 2019.4.x LTS + UWP Build Support + Visual Studio 2019
  * MRTK 2.4.0 
  * OpenCV for Unity 2.3.9
 
