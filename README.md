@@ -20,7 +20,7 @@ Tested on HoloLens 2 and Gen 1.
 
 ## Setup
 
-Import the OpenCV for Unity asset.<br>
+After cloning, open the project in Unity and import the OpenCV for Unity asset.<br>
 Setup the OpenCVForUnity: Tools > OpenCV for Unity > Set Plugin Import Settings
 
 **Note**: MRTK 2.4.0 package files are already included in this repository.
