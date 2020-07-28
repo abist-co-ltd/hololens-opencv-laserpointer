@@ -67,7 +67,7 @@ See [Locatable camera](https://docs.microsoft.com/en-us/windows/mixed-reality/lo
 |--------|--------|-------------|
 | Unprojection Offset  | (float x, float y) | Calibration of 2D -> 3D unprojection of detected laser pointer. Adjust to reduce unprojection error.
 | Detection Area | (float x, float y) | Portion of the camera image used for laser pointer detection. x and y must be between 0 and 1. Smaller values increase speed but narrow the detection area.
-| Is Visible Image    | bool | Enable to view the real time camera image for debugging purposes. Works currently only when running in the unity editor.|
+| Is Visible Image    | bool | Enables a panel showing the real time camera image for debugging purposes.|
 |Show FPS | bool | Enable to view how many frames per seconds the laser pointer detection algorithm processes.
 | Fast Detection | bool | Enable to choose a detection algorithm that favours performance over accuracy.| 
 
