@@ -103,7 +103,7 @@ Currently, detection is limited to a single red laser pointer. Red and shiny obj
 
 This code is based on the following source code:
 
- * VulcanTechnologies [HoloLensCameraStream for Unity](https://github.com/VulcanTechnologies/HoloLensCameraStream) (Apache Apache License Version 2.0)
+ * VulcanTechnologies [HoloLensCameraStream for Unity](https://github.com/VulcanTechnologies/HoloLensCameraStream) (Apache License Version 2.0)
     * Source files  from [HoloLensCameraStream for Unity](https://github.com/VulcanTechnologies/HoloLensCameraStream) are included to
     Assets/Script/HoloLensCameraStream/ with the the following modifications: 
 
