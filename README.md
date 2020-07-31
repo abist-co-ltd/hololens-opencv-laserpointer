@@ -95,6 +95,11 @@ Currently, detection is limited to a single red laser pointer. Red and shiny obj
 
 ## Related Information
 
+* [HoloLens
+で OpenCV をどう使うか
+レーザーポインター
+認識で試してみた](/Document/200729HoloLensOpenCVLaserpointer.pdf)<br>
+Lightning Talk held at [Tokyo HoloLens ミートアップ vol.21](https://hololens.connpass.com/event/181938/), 2020-07-29 (in Japanese)
 * https://docs.microsoft.com/en-us/windows/mixed-reality/locatable-camera
 * https://docs.microsoft.com/en-us/uwp/api/windows.media.devices.core.cameraintrinsics.unprojectatunitdepth
 
