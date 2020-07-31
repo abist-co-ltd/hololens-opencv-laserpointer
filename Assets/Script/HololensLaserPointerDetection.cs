@@ -68,16 +68,24 @@ namespace HoloLensWithOpenCVForUnityExample
         // Use this for initialization
         protected void Start()
         {
-            webCamTextureToMatHelper = gameObject.GetComponent<HololensCameraStreamToMatHelper>();
-#if ENABLE_WINMD_SUPPORT
-            webCamTextureToMatHelper.frameMatAcquired += OnFrameMatAcquired;
-#endif
             if (!isVisibleImage)
             {
                 this.gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
             }
             redSphere = GameObject.Find("Sphere");
             toolTipText = redSphere.transform.Find("ToolTip/Label").GetComponent<TextMeshPro>();
+            webCamTextureToMatHelper = gameObject.GetComponent<HololensCameraStreamToMatHelper>();
+            InitWebCamHelper();
+        }
+
+        /// <summary>
+        /// Registers callback for incoming video frames and starts capturing video frames 
+        /// </summary>
+        private void InitWebCamHelper()
+        {
+            #if ENABLE_WINMD_SUPPORT
+                webCamTextureToMatHelper.frameMatAcquired += OnFrameMatAcquired;
+            #endif
             webCamTextureToMatHelper.Initialize();
         }
 
@@ -502,26 +510,25 @@ namespace HoloLensWithOpenCVForUnityExample
         }
 #endif
 
-#if ENABLE_WINMD_SUPPORT
         /// <summary>
-        /// 
+        /// Releases camera whenever the application it put into background (focus == false)
+        /// and claims camera when the application moves to foreground (focus == true)
         /// </summary>
+        /// <param name="focus">true if put into foreground, false if background</param>
         private void OnApplicationFocus(bool focus)
         {
-            if (focus)
+            if (focus)  // get access to the camera
             {
-                webCamTextureToMatHelper.frameMatAcquired += OnFrameMatAcquired;
-                webCamTextureToMatHelper.Initialize();
+                InitWebCamHelper();
             }
-            else
+            else        // release camera
             {
-                webCamTextureToMatHelper.Dispose();
+                OnDestroy();
             }
         }
-#endif
 
         /// <summary>
-        /// Raises the destroy event.
+        /// Releases camera on destroy event (application closed).
         /// </summary>
         void OnDestroy()
         {
