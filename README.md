@@ -85,6 +85,9 @@ Depending on the environment and type of laser pointer, it may be necessary to a
             Core.inRange(hsvMat, s_min, s_max, maskMat2);
 ```
 
+See the class and sequence diagrams in the [Document](/Document/) folder
+for information on the static structure and dynamic behavior of the code.
+
 
 ## Known Issues and Limitations
 
