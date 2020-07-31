@@ -502,6 +502,24 @@ namespace HoloLensWithOpenCVForUnityExample
         }
 #endif
 
+#if ENABLE_WINMD_SUPPORT
+        /// <summary>
+        /// 
+        /// </summary>
+        private void OnApplicationFocus(bool focus)
+        {
+            if (focus)
+            {
+                webCamTextureToMatHelper.frameMatAcquired += OnFrameMatAcquired;
+                webCamTextureToMatHelper.Initialize();
+            }
+            else
+            {
+                webCamTextureToMatHelper.Dispose();
+            }
+        }
+#endif
+
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
