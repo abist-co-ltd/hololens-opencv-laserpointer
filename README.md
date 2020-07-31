@@ -8,7 +8,7 @@ minimal setup for
 
 Tested on HoloLens 2 and Gen 1.
 
-![Laser Pointer Dection](/Document/LaserPointerDetection.PNG)
+[![Alt Laser Pointer Detection](/Document/LaserPointerDetection.PNG)](https://www.youtube.com/watch?v=zsmA6J5sJh4)
 
 ## Dependencies
 
