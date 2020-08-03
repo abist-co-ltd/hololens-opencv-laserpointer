@@ -109,7 +109,7 @@ Lightning Talk held at [Tokyo HoloLens ミートアップ vol.21](https://holole
 
 ## Copyright
 
-This code is provided by [ABIST AI Solution](https://ar.abist-ai.com/) under Apache License Version 2.0. It is based on the following source code:
+This code is provided by the [AR Team](https://ar.abist-ai.com/) of [ABIST AI Solution](https://www.abist.co.jp/service/AI_solution.html) under Apache License Version 2.0. It is based on the following source code:
 
  * VulcanTechnologies [HoloLensCameraStream for Unity](https://github.com/VulcanTechnologies/HoloLensCameraStream) (Apache License Version 2.0)
     * Source files  from [HoloLensCameraStream for Unity](https://github.com/VulcanTechnologies/HoloLensCameraStream) are included to
